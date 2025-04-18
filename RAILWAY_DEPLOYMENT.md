@@ -8,19 +8,31 @@ This guide provides step-by-step instructions for deploying the PaddleOCR API to
 2. The [Railway CLI](https://docs.railway.app/develop/cli) installed (optional, for local development)
 3. Git installed on your machine
 
-## Deployment Steps
+## Deployment Options
+
+There are multiple ways to deploy this application to Railway:
+
+### Option 1: Deploy with Nixpacks (Recommended)
+
+1. Ensure your repository has these files:
+
+   - `ocr_api.py` - The Flask API application
+   - `requirements_railway.txt` - Python dependencies with headless OpenCV
+   - `nixpacks.toml` - System dependencies configuration
+   - `.railway.json` - Railway configuration
+
+2. Railway will automatically use Nixpacks to build your application.
+
+### Option 2: Deploy with Dockerfile
+
+1. Ensure your repository has the Dockerfile we've provided
+2. When creating a new project in Railway, select "Deploy from Dockerfile"
+
+## Step-by-Step Deployment
 
 ### 1. Prepare your repository
 
-Ensure your repository has the following files:
-
-- `ocr_api.py` - The Flask API application
-- `Procfile` - Tells Railway how to run your application
-- `runtime.txt` - Specifies the Python version
-- `requirements_railway.txt` - Lists all the dependencies
-- `apt.txt` - Lists system dependencies needed for OpenCV
-- `.railway.json` - Configuration file for Railway
-- All necessary model files in the expected directories
+Ensure your repository has the necessary files based on your chosen deployment option.
 
 ### 2. Deploy to Railway via GitHub
 
@@ -28,7 +40,7 @@ Ensure your repository has the following files:
 2. Click on "New Project"
 3. Select "Deploy from GitHub repo"
 4. Select your repository
-5. Railway will automatically detect the configuration from your .railway.json file
+5. Railway will automatically detect the configuration
 
 ### 3. Set Environment Variables
 
@@ -51,20 +63,13 @@ In the Railway dashboard, go to your project and set the following environment v
    curl -X POST -F "image=@path/to/image.jpg" https://your-railway-domain.railway.app/ocr
    ```
 
-## System Dependencies
+## Troubleshooting OpenCV Issues
 
-The OpenCV library requires several system dependencies to work properly in a containerized environment. These are listed in the `apt.txt` file:
+If you encounter issues with OpenCV dependencies:
 
-```
-libgl1-mesa-glx
-libglib2.0-0
-libsm6
-libxrender1
-libxext6
-libx11-6
-```
-
-These dependencies will be automatically installed during the build process through the command specified in `.railway.json`.
+1. We've switched to `opencv-python-headless` which doesn't require GUI libraries
+2. The Dockerfile approach explicitly installs all necessary system dependencies
+3. The nixpacks.toml file specifies system packages needed for building
 
 ## Model Files
 
@@ -74,13 +79,6 @@ Ensure that all the ONNX model files are properly included in your repository:
 - `./inference/rec_onnx/model.onnx` - Text recognition model
 - `./inference/cls_onnx/model.onnx` - Text classification model
 - `./ppocr/utils/en_dict.txt` - Character dictionary
-
-## Troubleshooting
-
-1. If deployment fails, check the logs in the Railway dashboard
-2. Ensure all required model files are in the correct locations
-3. Verify that the `uploads` directory is created at startup
-4. If you see OpenCV-related errors, make sure all system dependencies in apt.txt are correctly specified
 
 ## Additional Notes
 
