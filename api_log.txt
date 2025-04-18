@@ -1,0 +1,14 @@
+/opt/anaconda3/lib/python3.12/site-packages/paddle/utils/cpp_extension/extension_utils.py:711: UserWarning: No ccache found. Please be aware that recompiling all source files may be required. You can download and install ccache from: https://github.com/ccache/ccache/blob/master/doc/INSTALL.md
+  warnings.warn(warning_message)
+ * Serving Flask app 'ocr_api'
+ * Debug mode: off
+[2025-04-18 18:31:38,244] [    INFO] _internal.py:97 - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5001
+ * Running on http://10.239.195.126:5001
+[2025-04-18 18:31:38,244] [    INFO] _internal.py:97 - [33mPress CTRL+C to quit[0m
+[2025-04-18 18:31:51,082] [    INFO] _internal.py:97 - 127.0.0.1 - - [18/Apr/2025 18:31:51] "POST /ocr HTTP/1.1" 200 -
+[2025-04-18 18:31:58,611] [    INFO] _internal.py:97 - 127.0.0.1 - - [18/Apr/2025 18:31:58] "POST /ocr HTTP/1.1" 200 -
+[2025-04-18 18:32:54,006] [    INFO] _internal.py:97 - 127.0.0.1 - - [18/Apr/2025 18:32:54] "[33mPOST /ocr/lottery HTTP/1.1[0m" 404 -
+[2025-04-18 18:33:06,484] [    INFO] _internal.py:97 - 127.0.0.1 - - [18/Apr/2025 18:33:06] "POST /ocr HTTP/1.1" 200 -
+[2025-04-18 18:33:10,898] [    INFO] _internal.py:97 - 127.0.0.1 - - [18/Apr/2025 18:33:10] "[33mOPTIONS / HTTP/1.1[0m" 404 -
