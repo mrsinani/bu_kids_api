@@ -1,6 +1,17 @@
-numpy>=1.21.0
-opencv-python>=4.5.3
-onnxruntime>=1.8.0
-Pillow>=8.2.0
-pyclipper>=1.3.0
-shapely>=1.7.1 
+shapely
+scikit-image
+pyclipper
+lmdb
+tqdm
+numpy
+rapidfuzz
+opencv-python
+opencv-contrib-python
+cython
+Pillow
+pyyaml
+requests
+albumentations
+# to be compatible with albumentations
+albucore
+packaging

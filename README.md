@@ -1,130 +1,48 @@
-# BU Kids OCR API
+# PaddleOCR with ONNX Inference
 
-A streamlined API for Optical Character Recognition (OCR) using PaddleOCR models converted to ONNX format.
+This repository contains a simplified version of PaddleOCR focused on ONNX inference for optical character recognition.
 
-## Features
+## Quick Start
 
-- Text detection, recognition, and orientation classification
-- Fast inference with ONNX Runtime
-- Clean and simple API with FastAPI
-- Multiple usage modes: API, CLI, or direct library integration
-
-## Setup
-
-### Prerequisites
-
-- Python 3.7 or higher
-- Models in ONNX format (see "Preparing Models" section)
-
-### Installation
-
-1. Clone the repository:
+1. Install dependencies:
 
 ```bash
-git clone https://github.com/yourusername/bu-kids-ocr.git
-cd bu-kids-ocr
+pip install -r requirements_onnx.txt
 ```
 
-2. Install dependencies:
+2. Run the demo on the sample image:
 
 ```bash
-pip install -e .
+python paddleocr_onnx_demo.py --image_path=./images/IMG_1538.png --methods=1
 ```
 
-### Preparing Models
+## Demo Script Options
 
-The API requires three ONNX models for OCR:
+The `paddleocr_onnx_demo.py` script demonstrates three methods for OCR inference:
 
-- Text detection model
-- Text classification model
-- Text recognition model
+- Method 1: Using the high-level PaddleOCR class
+- Method 2: Using the predict_system.py command-line tool
+- Method 3: Using a custom OCR pipeline
 
-You can convert PaddleOCR models to ONNX format using the built-in conversion tool:
+You can specify which methods to run:
 
 ```bash
-# From the PaddleOCR directory
-cd /path/to/PaddleOCR
-
-# Download PaddleOCR models if needed
-wget -nc -P ./inference https://paddleocr.bj.bcebos.com/PP-OCRv3/english/en_PP-OCRv3_det_infer.tar
-cd ./inference && tar xf en_PP-OCRv3_det_infer.tar && cd ..
-
-wget -nc -P ./inference https://paddleocr.bj.bcebos.com/PP-OCRv3/english/en_PP-OCRv3_rec_infer.tar
-cd ./inference && tar xf en_PP-OCRv3_rec_infer.tar && cd ..
-
-wget -nc -P ./inference https://paddleocr.bj.bcebos.com/dygraph_v2.0/ch/ch_ppocr_mobile_v2.0_cls_infer.tar
-cd ./inference && tar xf ch_ppocr_mobile_v2.0_cls_infer.tar && cd ..
-
-# Install paddle2onnx if needed
-pip install paddle2onnx
-
-# Convert models
-cd bu_kids_api
-python main.py convert --paddle-dir ../inference
+python paddleocr_onnx_demo.py --image_path=./images/IMG_1538.png --methods=1,2,3
 ```
 
-After conversion, the ONNX models will be in the `models/onnx` directory.
+## Comprehensive Documentation
 
-## Usage
+For detailed instructions on using PaddleOCR with ONNX models, refer to:
+[README_ONNX_INFERENCE.md](README_ONNX_INFERENCE.md)
 
-### As an API Server
+## Model Information
 
-```bash
-# Start the API server
-python main.py api --port 8000
-```
+This repository includes ONNX models for:
 
-The API will be available at http://localhost:8000. You can test it using:
-
-- Swagger UI: http://localhost:8000/docs
-- ReDoc: http://localhost:8000/redoc
-
-### As a CLI Tool
-
-```bash
-# Process a single image
-python main.py cli --image path/to/image.jpg --output result.jpg
-
-# Save results as JSON
-python main.py cli --image path/to/image.jpg --json results.json
-```
-
-### As a Python Library
-
-```python
-from bu_kids_api.src.ocr_pipeline import OCRPipeline, get_model_paths
-
-# Get model paths
-det_model, cls_model, rec_model, dict_path = get_model_paths()
-
-# Initialize OCR pipeline
-ocr = OCRPipeline(det_model, cls_model, rec_model, dict_path)
-
-# Process an image
-results = ocr("path/to/image.jpg")
-
-# Print detected text
-for result in results:
-    print(f"Text: {result['text']}, Confidence: {result['confidence']}")
-```
-
-## API Endpoints
-
-- `POST /ocr`: Perform OCR on an uploaded image file
-- `POST /ocr/base64`: Perform OCR on a base64-encoded image
-- `GET /health`: Check if the API is healthy
-
-## Example Test
-
-```bash
-# Test with a sample image
-python main.py cli --image samples/test.jpg --output result.jpg
-```
+- Text Detection (`inference/det_onnx/model.onnx`)
+- Text Recognition (`inference/rec_onnx/model.onnx`)
+- Text Direction Classification (`inference/cls_onnx/model.onnx`)
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
-
-## Acknowledgments
-
-This API is based on [PaddleOCR](https://github.com/PaddlePaddle/PaddleOCR) models.
+PaddleOCR is released under the Apache 2.0 license.
