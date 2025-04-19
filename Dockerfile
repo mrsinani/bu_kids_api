@@ -10,6 +10,7 @@ RUN apt-get update && apt-get install -y \
     libxrender1 \
     libxext6 \
     libx11-6 \
+    libgomp1 \
     && rm -rf /var/lib/apt/lists/*
 
 # Copy requirements and install Python dependencies

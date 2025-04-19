@@ -6,5 +6,6 @@ nixPkgs = [
   "libxrender",
   "libxext",
   "libx11",
-  "xorg.libX11"
+  "xorg.libX11",
+  "gcc.cc.lib"
 ] 
