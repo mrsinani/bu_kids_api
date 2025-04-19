@@ -13,4 +13,5 @@ scikit-image
 pyclipper
 tqdm
 rapidfuzz
-requests 
+requests
+albumentations>=1.0.0 

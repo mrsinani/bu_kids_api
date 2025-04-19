@@ -15,6 +15,10 @@ RUN apt-get update && apt-get install -y \
 
 # Copy requirements and install Python dependencies
 COPY requirements_railway.txt .
+
+# Install specific dependencies that might need extra attention
+RUN pip install --no-cache-dir numpy>=1.20.0 opencv-python-headless>=4.5.4
+RUN pip install --no-cache-dir albumentations>=1.0.0
 RUN pip install --no-cache-dir -r requirements_railway.txt
 
 # Copy application code
